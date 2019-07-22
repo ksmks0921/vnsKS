@@ -12,15 +12,23 @@ import Style from '@Theme/Style'
 import Styles from '@Screen/Public/Trending/Style'
 import ModalShare from './../Home/ModalShare'
 import ModalMemberAccount from './../Home/ModalMemberAccount'
+import BottomTab from '../PublicComponent/BottomTab';
 
 export default class extends React.Component {
     constructor() {
+        console.log("===constructor_trending===")
         super()
         this.state = {
             isDisabled: false,
             isOpen: false,
-            trendingData: global.feedData
+            trendingData: global.feedData,
+            avatarSource: global.avatar
         }
+    }
+
+    componentDidMount(){
+        global.active_page = 2;
+
     }
 
     _goToDetails(item){
@@ -52,7 +60,7 @@ export default class extends React.Component {
                         <Text style={Style.navMiddleDesc}>Trending VNS</Text>
                     </View>
                     <TouchableOpacity style={Style.navRight} onPress={() => {NavigationService.navigate('PublicProfile')}}>
-                        <Image source={{ uri: 'https://vns2.quickflik.co.uk/wp-content/uploads/2019/06/SI-Capital-Why-use-a-broker-150x150.png' }} style={Style.headerImg} />
+                        <Image source={{ uri: this.state.avatarSource }} style={Style.headerImg} />
                     </TouchableOpacity>
                 </View>
             </Header>
@@ -69,10 +77,12 @@ export default class extends React.Component {
                                     <Image source={{ uri: item.image }} style={Styles.videoImg} />
                                 </TouchableOpacity>
                                 <View style={Styles.videoReviews}>
-                                <TouchableOpacity onPress={() => this._goToChannel(item)}>
+                                    <TouchableOpacity onPress={() => this._goToChannel(item)}>
                                         <Image source={{ uri: item.logo }} style={Styles.logoImg} />
                                     </TouchableOpacity>
-                                    <Text style={Styles.videoDesc}>{item.title}</Text>
+                                    <TouchableOpacity onPress={() => this._goToDetails(item)} style={Styles.videoDesc}>
+                                        <Text style={Styles.videoDesc}>{item.title}</Text>
+                                    </TouchableOpacity>
                                     <Icon name='dots-vertical' type='MaterialCommunityIcons' style={Styles.videoShare} onPress={() => this.refModalShare.open(item)} />
                                 </View>
                                 <View style={Styles.videoComments}>
@@ -114,8 +124,8 @@ export default class extends React.Component {
                     /> */}
                 </View>
             </Content>
-
-            <View style={Style.footerBg}>
+            <BottomTab/>
+            {/* <View style={Style.footerBg}>
                 <View style={Style.fTab}>
                     <TouchableOpacity style={Style.fIcons} onPress={() => {
                         NavigationService.navigate('PublicHome')
@@ -136,7 +146,7 @@ export default class extends React.Component {
                         <Text style={Style.textInactive}>Subscription</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={Style.fIcons} onPress={() => {
-                        NavigationService.navigate('PublicInbox')
+                        this.props.navigation.replace('PublicInbox')
                     }}>
                         <Icon name='mail' type='Entypo' style={Style.iconInactive} />
                         <Text style={Style.textInactive}>Notification</Text>
@@ -148,7 +158,7 @@ export default class extends React.Component {
                         <Text style={Style.textInactive}>Watch List</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </View> */}
 
             <ModalShare
                 ref={(c) => { this.refModalShare = c }}

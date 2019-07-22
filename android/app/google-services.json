@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "447929745806",
+    "firebase_url": "https://vnsproject-2b2eb.firebaseio.com",
+    "project_id": "vnsproject-2b2eb",
+    "storage_bucket": "vnsproject-2b2eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447929745806:android:ab6c1d26e7da4ebb",
+        "android_client_info": {
+          "package_name": "com.clipflip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "447929745806-o45kbun2pvj9p6dq4sem7tadksk5oleb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clipflip",
+            "certificate_hash": "73c972cc0f2c1996dbca3a6b9220a40036b99758"
+          }
+        },
+        {
+          "client_id": "447929745806-t2tjomcsubsuqg7v1g2gfirusoe47v3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0xCE3dTCXJm3axSWhnz75OIp7G_cReew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447929745806-t2tjomcsubsuqg7v1g2gfirusoe47v3f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "447929745806-7601e1hlim91jf8t8e9o536t5lqdi6l6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ks.vns"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

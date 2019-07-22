@@ -5,7 +5,8 @@ const UserData = {
     userName: '',
     email: '',
     password: '',
-    session_id: ''
+    session_id: '',
+    avatar: ''
 }
 
 export default UserData

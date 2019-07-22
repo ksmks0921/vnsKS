@@ -1,5 +1,6 @@
 const React = require("react-native");
 const { Platform } = React;
+import {Dimensions} from 'react-native';
 
 export default {
     navigationBar: {
@@ -72,8 +73,11 @@ export default {
         fontFamily: 'Montserrat-Regular',
         marginTop: 5
     },
-    groupLikeIcon: {
+    groupUnLikeIcon: {
         color: 'rgba(0,0,0,0.5)',
+    },
+    groupLikeIcon: {
+        color: '#370190',
     },
     listIcons: {
         width: '50%',
@@ -315,4 +319,32 @@ export default {
     WebViewContainer: {
         marginTop: (Platform.OS == 'ios') ? 20 : 0,
     },
+    //---video player--
+    toolbar: {
+        marginTop: 30,
+        backgroundColor: 'white',
+        padding: 10,
+        borderRadius: 5,
+    },
+    mediaPlayer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        backgroundColor: 'black',
+    },
+    
+    back1:{
+        height: 250,
+    },
+    back2: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height
+    },
+    back3: {
+        width: Dimensions.get('window').height,
+        height: Dimensions.get('window').width
+    }
+    //-----------------
 }

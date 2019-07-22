@@ -1,0 +1,33 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'ClipFlip' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for ClipFlip
+  pod 'Firebase/Core', '~> 6.3.0'
+  pod 'Firebase/Messaging', '~> 6.3.0'
+ 
+
+
+
+  target 'ClipFlipTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'ClipFlip-tvOS' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for ClipFlip-tvOS
+
+  target 'ClipFlip-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

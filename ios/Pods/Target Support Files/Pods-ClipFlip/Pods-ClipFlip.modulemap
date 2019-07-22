@@ -1,0 +1,6 @@
+framework module Pods_ClipFlip {
+  umbrella header "Pods-ClipFlip-umbrella.h"
+
+  export *
+  module * { export * }
+}

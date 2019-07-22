@@ -2,15 +2,17 @@ const nonceUrl = "http://vns2.quickflik.co.uk/api/get_nonce/?controller=user&met
 const signUpUrl ="https://vns2.quickflik.co.uk/api/signup/?auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY";
 const signInUrl ="https://vns2.quickflik.co.uk/api/login/?";
 const getFeedDataUrl = "https://vns2.quickflik.co.uk/api/getposts/?perpage=100&auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY";
-const getDetailDataUrl = "https://vns2.quickflik.co.uk/api/getpost/?custom_post=ct_channel&auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY";
+// const getDetailDataUrl = "https://vns2.quickflik.co.uk/api/getpost/?custom_post=ct_channel&auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY";
 const getAllLogoUrl = "https://vns2.quickflik.co.uk/api/getposts/?custom_post=ct_channel&perpage=100&auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY";
 const getAboutDataUrl = "https://vns2.quickflik.co.uk/api/getpost/?custom_post=ct_channel&auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY";
 const getBodDataUrl = "https://vns2.quickflik.co.uk/api/getpost/?custom_post=ct_actor&perpage=100&auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY";
 const subscribeUrl = "https://vns2.quickflik.co.uk/wp-admin/admin-ajax.php";
 const watchLaterUrl = "https://vns2.quickflik.co.uk/wp-admin/admin-ajax.php";
 const videoSearchUrl = "https://vns2.quickflik.co.uk/api/search_posts/?search_level=0&auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY&callpage=1&perpage=100";
-const companySearchUrl = "https://vns2.quickflik.co.uk/api/search_posts/?search_level=0&auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY&callpage=1&perpage=100&custom_post=ct_channel"
-const profileUpdateUrl = "https://vns2.quickflik.co.uk/api/edit_profile/?auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY"
+const companySearchUrl = "https://vns2.quickflik.co.uk/api/search_posts/?search_level=0&auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY&callpage=1&perpage=100&custom_post=ct_channel";
+const profileUpdateUrl = "https://vns2.quickflik.co.uk/api/edit_profile/?auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY";
+const registerDdeviceTokenUrl ="https://vns2.quickflik.co.uk/push/savetoken/?auth_key=FDcWZN3y39n8lDIV605gvP7sV&device_type=ios";
+const getNotifyDataUrl = "https://vns2.quickflik.co.uk/push/get_archive/?auth_key=FDcWZN3y39n8lDIV605gvP7sV&orderby=date&order=desc&perpage=100";
 
 const api = {
 
@@ -187,21 +189,54 @@ const api = {
     },
 
     profileUpdate(UserData) {
-        var url =  profileUpdateUrl + "&first_name=" + UserData.firstName  + "&last_name=" + UserData.lastName + "&email=" + UserData.email + "&password=" + UserData.password + "&SESSION_ID=" + UserData.session_id  
         console.log("profileUpdate_API______");
+
+        console.log("UserData===");
+        console.log( UserData);
+        var url = profileUpdateUrl  + "&SESSION_ID=" + UserData.session_id + "&first_name=" + UserData.firstName  + "&last_name=" + UserData.lastName +  "&email=" + UserData.email + "&password=" + UserData.password
+        console.log("profile Update URL"+ url);
         result = fetch(url, {
             method: 'post',
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
+               
             },
             body: JSON.stringify({
-                
+            //    first_name: UserData.firstName,
+            //    last_name: UserData.lastName, 
+            //    email: UserData.email,
+            //    password:UserData.password,
+            //    "SESSION_ID": UserData.session_id,
+               file64: UserData.avatar,
             })
         }).then((response) => response.json());
         
         return result;
     },
+    
+    registerDdeviceToken(fcmToken) {
+        console.log('registerDdeviceToken API_________')
+       
+        var url =  registerDdeviceTokenUrl + "&device_token=" + fcmToken;
+        console.log(" registerDdeviceToken url____"+url);
+        result = fetch(url, {
+            method: 'GET'
+        }).then((response) => response.json());
+        
+        return result;
+    },
+
+    getNotifyData() {
+        console.log('getNotifyData API_________');
+        
+        result = fetch(getNotifyDataUrl, {
+            method: 'GET'
+        }).then((response) => response.json());
+        
+        return result;
+    },
+
+
+    
     
        
 }

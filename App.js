@@ -17,6 +17,11 @@ import PublicInbox from '@Screen/Public/Inbox'
 import PublicLibrary from '@Screen/Public/Library'
 import PublicHelp from '@Screen/Public/Help'
 import PublicProfile from '@Screen/Public/Profile'
+import PublicNotification from '@Screen/Public/Notification'
+import PublicBottomTab from '@Screen/Public/PublicComponent/BottomTab'
+
+
+
 
 
 import MemberHome from '@Screen/Member/Home'
@@ -99,6 +104,15 @@ const AppNav = createStackNavigator(
     PublicHelp: {
       screen: PublicHelp
     },
+
+    PublicNotification: {
+      screen: PublicNotification
+    },
+
+    PublicBottomTab: {
+      screen: PublicBottomTab
+    },
+
 
     MemberHome: {
       screen: MemberHome

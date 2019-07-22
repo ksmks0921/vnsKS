@@ -169,7 +169,8 @@ export default {
     ...Platform.select({
       ios: {
         color: '#370190',
-        fontSize: 24
+        fontSize: 24,
+        alignSelf: 'center'
       },
       android: {
         color: '#370190',
@@ -182,7 +183,8 @@ export default {
     ...Platform.select({
       ios: {
         fontSize: 24,
-        color: 'rgba(0,0,0,0.5)'
+        color: 'rgba(0,0,0,0.5)',
+        alignSelf: 'center'
       },
       android: {
         fontSize: 24,

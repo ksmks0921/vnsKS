@@ -13,7 +13,7 @@ import Style from '@Theme/Style'
 import Styles from '@Screen/LeftMenuDetail/VnsSchool/Style'
 
 export default class extends React.Component {
-
+    _isMounted = false;
     constructor(props) {
         super(props)
     
@@ -23,6 +23,7 @@ export default class extends React.Component {
     }
 
     componentWillMount(){
+        this._isMounted = true;
         var unFilteredVnsSchoolData =[];
         global.feedData.map((data, index)=>{
             if(data.channel_id == 29){
@@ -52,6 +53,10 @@ export default class extends React.Component {
         global.channel_id =item.channel_id;
         NavigationService.navigate('PublicChannel');
         console.log('//////////////////////////////////////////home_channel_id'+global.channel_id)
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
     render() {
         return<Container>

@@ -1,0 +1,6 @@
+framework module Pods_ClipFlip_tvOS {
+  umbrella header "Pods-ClipFlip-tvOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

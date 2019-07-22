@@ -15,6 +15,7 @@ import ModalShare from './../Home/ModalShare'
 import ModalMemberAccount from './../Home/ModalMemberAccount'
 import UserData from '../../../Constants/Constants'
 import api from '../../../Constants/Api'
+import BottomTab from '../PublicComponent/BottomTab';
 
 export default class extends React.Component {
     constructor() {
@@ -23,6 +24,7 @@ export default class extends React.Component {
             isDisabled: false,
             isOpen: false,
             subscribeVideo: [],
+            avatarSource: global.avatar
         }
     }
     componentWillMount(){
@@ -102,6 +104,10 @@ export default class extends React.Component {
         //     }
         // }
         
+    }
+
+    componentDidMount(){
+        global.active_page = 3;
     }
     //------------------------get Video data----------------------------//
     _getVideoData(selectedsbscribelId){
@@ -197,7 +203,7 @@ export default class extends React.Component {
                         <Text style={Style.navMiddleDesc}>Subscription</Text>
                     </View>
                     <TouchableOpacity style={Style.navRight} onPress={() => {NavigationService.navigate('PublicProfile')}}>
-                        <Image source={{ uri: "https://vns2.quickflik.co.uk/wp-content/uploads/2019/06/SI-Capital-Why-use-a-broker-150x150.png" }} style={Style.headerImg} />
+                        <Image source={{ uri: this.state.avatarSource }} style={Style.headerImg} />
                     </TouchableOpacity>
                 </View>
             </Header>
@@ -228,10 +234,12 @@ export default class extends React.Component {
                                     <Image source={{ uri: item.image }} style={Styles.videoImg} />                                    
                                 </TouchableOpacity>
                                 <View style={Styles.videoReviews}>
-                                <TouchableOpacity onPress={() => this._goToChannel(item)}>
+                                    <TouchableOpacity onPress={() => this._goToChannel(item)}>
                                         <Image source={{ uri: item.logo }} style={Styles.logoImg} />
                                     </TouchableOpacity>
-                                    <Text style={Styles.videoDesc}>{item.title}</Text>
+                                    <TouchableOpacity onPress={() => this._goToDetails(item)} style={Styles.videoDesc}>
+                                        <Text style={Styles.videoDesc}>{item.title}</Text>
+                                    </TouchableOpacity>
                                     <Icon name='dots-vertical' type="MaterialCommunityIcons" style={Styles.videoShare} onPress={() => this.refModalShare.open(item)} />
                                 </View>
                                 <View style={Styles.videoComments}>
@@ -246,8 +254,8 @@ export default class extends React.Component {
                     />
                 </View>
             </Content>
-
-            <View style={Style.footerBg}>
+            <BottomTab/>
+            {/* <View style={Style.footerBg}>
                 <View style={Style.fTab}>
                     <TouchableOpacity style={Style.fIcons} onPress={() => {
                         NavigationService.navigate('PublicHome')
@@ -268,7 +276,7 @@ export default class extends React.Component {
                         <Text style={Style.textActive}>Subscription</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={Style.fIcons} onPress={() => {
-                        NavigationService.navigate('PublicInbox')
+                        this.props.navigation.replace('PublicInbox')
                     }}>
                         <Icon name="mail" type="Entypo" style={Style.iconInactive} />
                         <Text style={Style.textInactive}>Nottification</Text>
@@ -280,7 +288,7 @@ export default class extends React.Component {
                         <Text style={Style.textInactive}>Watch List</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </View> */}
 
             <ModalShare
                 ref={(c) => { this.refModalShare = c }}

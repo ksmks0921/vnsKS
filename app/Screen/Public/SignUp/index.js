@@ -18,12 +18,12 @@ export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            firstName: 'first1',
-            lastName: 'Last1',
-            userName: 'first@g.com',
-            email: 'first@g.com',
-            password: '123',
-            c_password: '123',
+            firstName: '',
+            lastName: '',
+            userName: '',
+            email: '',
+            password: '',
+            c_password: '',
             hidePassword: true,
             spinner: false,
         };
@@ -40,26 +40,36 @@ export default class extends React.Component {
         console.log("c_password____"+ this.state.c_password);
 
         if(this.state.password==this.state.c_password){
+            console.log("Password=============c_password");
+
             UserData.firstName = this.state.firstName;
             UserData.lastName = this.state. lastName;
             UserData.userName = this.state.email;
             UserData.email = this.state.email;
             UserData.password = this.state.password;
-        
+            
             console.log('UserData_____');
             console.log(UserData);
-            console.log("Password=============c_password");
+            
+
             api.signUp(UserData).then((res)=>{
                 console.log('sinUp_response____');
                 console.log(res);
                 if(res.respond == 1){
                     console.log("signUp Success!!!!!!!!!");
-                    global.userData = res.result[0];
+                    
                     global.user_id = res.result[0].ID;
                     console.log("===user_id===" + global.user_id);
 
-                    global.subscribe_channel_id =  [];
+                    global.firstName = res.result[0].first_name;
+                    global.lastName = res.result[0].last_name;
+                    global.email = res.result[0].user_email;
+                    UserData.userName = res.result[0].user_email;
+                    global.password = this.state.password;
+                    global.avatar = res.result[0].avatar + '?' + new Date();
                     global.session_id = res.result[0].session_id;
+
+                    global.subscribe_channel_id =  [];
                     
                     this._allLogo();
                     AsyncStorage.setItem(USER_KEY, JSON.stringify(UserData));
@@ -228,37 +238,40 @@ export default class extends React.Component {
                     // textStyle={{ color: '#06D65D'}}
                 />
                 <ImageBackground source={require('@Asset/images/bg-login.jpg')} style={Styles.backgournd} >
-                    <View style={{flex: 3, }}>  
-                        <View style={Styles.logo}>
-                            <Image style={{}} source={require('@Asset/images/logo-vns.png')} />
-                        </View>
-                        <View style={{flex: 2,}}>
-                            <TextInput  style={Style.login_TextInput} placeholder="FIRST NAME"  placeholderTextColor='#b0aeae' value={this.state.firstName}  onChangeText={(TextInputValue) => this.setState({firstName: TextInputValue})} />
-                            <TextInput  style={Style.login_TextInput} placeholder="LAST NAME"  placeholderTextColor='#b0aeae' value={this.state.lastName}  onChangeText={(TextInputValue) => this.setState({lastName: TextInputValue})} />
-                            {/* <TextInput  style={Style.login_TextInput} placeholder="USERNAME"  placeholderTextColor='rgba(0,0,0,0.2)' value={this.state.userName}  onChangeText={(TextInputValue) => this.setState({userName: TextInputValue})} /> */}
-                            <TextInput  style={Style.login_TextInput} placeholder="EMAIL"  placeholderTextColor='#b0aeae' value={this.state.email} keyboardType="email-address" onChangeText={(TextInputValue) => this.setState({email: TextInputValue})} />
-                            <TextInput secureTextEntry={true}  style={Style.login_TextInput}  placeholder="PASSWORD"  placeholderTextColor='#b0aeae' value={this.state.password}  onChangeText={(TextInputValue) => this.setState({password: TextInputValue})} />
-                            <TextInput secureTextEntry={true}  style={Style.login_TextInput}  placeholder="CONFIRM PASSWORD"  placeholderTextColor='#b0aeae' value={this.state.c_password}  onChangeText={(TextInputValue) => this.setState({c_password: TextInputValue})} />
-                        </View>
-                    </View>
-
-                    <View style={{flex: 1.5, }}>     
-                        <View style={{flex: 1, justifyContent: "center", }} >
-                            <TouchableOpacity style={Styles.LoginButton} onPress={() => this._signUp()}>
-                                <Text style={{fontSize: 13, color: 'white'}}>SIGN IN</Text>
-                            </TouchableOpacity>
-                        </View>    
-                        <View style={Style.hadAccount_view}>
-                            <View style={Style.hadAccount}>
-                                <View style={Style.hadAccount_des}>
-                                    <Text style={Style.hadAccountDes_text}>I have an account. Let me </Text>
-                                </View>
-                                <TouchableOpacity style={Style.hadAccount_button} onPress={() => {NavigationService.navigate('PublicSignIn')}}>
-                                    <Text style={Style.hadAccountBtn_des}>Sign In.</Text>
-                                </TouchableOpacity>
+                    <KeyboardAvoidingView  style={{flex: 1}} behavior="padding"  enabled   keyboardVerticalOffset={50} >
+                        <View style={{flex: 3, }}>  
+                            <View style={Styles.logo}>
+                                <Image style={{}} source={require('@Asset/images/logo-vns.png')} />
+                            </View>
+                            <View style={{flex: 2,}}>
+                                <TextInput  style={Style.login_TextInput} placeholder="FIRST NAME"  placeholderTextColor='#b0aeae' value={this.state.firstName}  onChangeText={(TextInputValue) => this.setState({firstName: TextInputValue})} />
+                                <TextInput  style={Style.login_TextInput} placeholder="LAST NAME"  placeholderTextColor='#b0aeae' value={this.state.lastName}  onChangeText={(TextInputValue) => this.setState({lastName: TextInputValue})} />
+                                {/* <TextInput  style={Style.login_TextInput} placeholder="USERNAME"  placeholderTextColor='rgba(0,0,0,0.2)' value={this.state.userName}  onChangeText={(TextInputValue) => this.setState({userName: TextInputValue})} /> */}
+                                <TextInput  style={Style.login_TextInput} placeholder="EMAIL"  placeholderTextColor='#b0aeae' value={this.state.email} keyboardType="email-address" onChangeText={(TextInputValue) => this.setState({email: TextInputValue})} />
+                                <TextInput secureTextEntry={true}  style={Style.login_TextInput}  placeholder="PASSWORD"  placeholderTextColor='#b0aeae' value={this.state.password}  onChangeText={(TextInputValue) => this.setState({password: TextInputValue})} />
+                                <TextInput secureTextEntry={true}  style={Style.login_TextInput}  placeholder="CONFIRM PASSWORD"  placeholderTextColor='#b0aeae' value={this.state.c_password}  onChangeText={(TextInputValue) => this.setState({c_password: TextInputValue})} />
                             </View>
                         </View>
-                    </View>
+
+                        <View style={{flex: 1.5, }}>     
+                            <View style={{flex: 1, justifyContent: "center", }} >
+                                <TouchableOpacity style={Styles.LoginButton} onPress={() => this._signUp()}>
+                                    <Text style={{fontSize: 13, color: 'white'}}>SIGN IN</Text>
+                                </TouchableOpacity>
+                            </View>    
+                            <View style={Style.hadAccount_view}>
+                                <View style={Style.hadAccount}>
+                                    <View style={Style.hadAccount_des}>
+                                        <Text style={Style.hadAccountDes_text}>I have an account. Let me </Text>
+                                    </View>
+                                    <TouchableOpacity style={Style.hadAccount_button} onPress={() => {NavigationService.navigate('PublicSignIn')}}>
+                                        <Text style={Style.hadAccountBtn_des}>Sign In.</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </KeyboardAvoidingView> 
+
                 </ImageBackground>
             </Content>   
         </Container>

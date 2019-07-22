@@ -95,6 +95,12 @@ export default class extends React.Component {
             console.log(error);
         })
     }
+
+    _goToChannel(item){
+        global.channel_id =item.channel_id;
+        NavigationService.navigate('PublicChannel');
+        console.log('//////////////////////////////////////////home_channel_id'+global.channel_id)
+    }
     render() {
         console.log("==================companies render======================")
         return<Container>
@@ -116,9 +122,7 @@ export default class extends React.Component {
                         showsHorizontalScrollIndicator={false}
                         renderItem={({ item, separators }) => (
                             <View style={Styles.videoCaption}>
-                                <TouchableOpacity onPress={() => {
-                                    NavigationService.navigate('PublicChannel')
-                                }}>
+                                <TouchableOpacity onPress={() => this._goToChannel(item)}>
                                     <Image source={{ uri: item.logo }} style={Styles.videoImg} />
                                 </TouchableOpacity>
                                 <View style={Styles.videoDetails}>

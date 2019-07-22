@@ -11,6 +11,8 @@ import api from '../../../Constants/Api'
 import UserData from '../../../Constants/Constants'
 
 export default class extends React.Component {
+    _isMounted = false;
+
     constructor(props) {
         super(props);
 
@@ -22,8 +24,13 @@ export default class extends React.Component {
     }
 
     componentWillMount(){
+        this._isMounted = true;
         this._getSubscribe();
         global.select = [];
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
     
     _getSubscribe(){

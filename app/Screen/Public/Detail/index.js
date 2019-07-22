@@ -1,7 +1,9 @@
 import React from 'react'
-import { StatusBar, TouchableOpacity, ImageBackground, Share, Image, FlatList, WebView } from 'react-native'
+import { StatusBar, TouchableOpacity, ImageBackground, Share, Image, FlatList, WebView, Dimensions } from 'react-native'
 import { Container, Header, Switch, Content, Icon, Text, Card, Button, View, Form } from 'native-base'
 import Spinner from 'react-native-loading-spinner-overlay';
+import Video from 'react-native-video';
+import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
 
 
 import NavigationService from '@Service/Navigation'
@@ -17,8 +19,9 @@ import Style from '@Theme/Style'
 import Styles from '@Screen/Public/Detail/Style'
 
 export default class extends React.Component {
-    constructor() {
-        super()
+    videoPlayer;
+    constructor(props) {
+        super(props)
         this.state = {
             isDisabled: false,
             isOpen: false,
@@ -26,7 +29,29 @@ export default class extends React.Component {
             spinner: false,
             videoData: global.videoData,
             detailShow: false,
+            likeStatus: false,
+            //--------------video player-------------
+            currentTime: 0,
+            duration: 0,
+            isFullScreen: false,
+            full: false,
+            isLoading: true,
+            paused: false,
+            playerState: PLAYER_STATES.PLAYING,
+            screenType: 'content',
+            orientation: 'portrate'
+            //---------------------------------------
         }
+    }
+
+    componentDidMount(){
+        this.getOrientation();
+        
+        Dimensions.addEventListener( 'change', () =>
+        {
+        this.getOrientation();
+        console.log('orientation ---------------' + this.state.orientation)
+        });
     }
 
     componentWillMount(){
@@ -64,17 +89,18 @@ export default class extends React.Component {
                     
                 if(global.videoData.channel_id == data.channel_id){
                     
-                    channelDetail[ index] = {
-                        realchannel_id: data.realchannel_id,
-                        channel_id: data.channel_id,
-                        video: data.video,
-                        image: data.image,
-                        logo: data.logo,
-                        title: data.title,
-                        tags: data.tags,
-                        views: data.views,
-                        time: data.time
-                    };
+                    channelDetail[ index] =  data;
+                    // {
+                    //     realchannel_id: data.realchannel_id,
+                    //     channel_id: data.channel_id,
+                    //     video: data.video,
+                    //     image: data.image,
+                    //     logo: data.logo,
+                    //     title: data.title,
+                    //     tags: data.tags,
+                    //     views: data.views,
+                    //     time: data.time
+                    // };
                 
                 }
             });
@@ -129,6 +155,80 @@ export default class extends React.Component {
     _showDetail(){
         this.setState({detailShow: !this.state.detailShow})
     }
+    _likeStatus(){
+        this.setState({likeStatus: !this.state.likeStatus});
+    }
+
+    //------------------------video Player------------------------
+    getOrientation = () => {
+        console.log('width: ' + Dimensions.get('window').width)
+        console.log('height: ' + Dimensions.get('window').height)
+        if( Dimensions.get('window').width < Dimensions.get('window').height )
+            {
+            this.setState({ orientation: 'portrait' });
+            }
+            else
+            {
+            this.setState({ orientation: 'landscape' });
+            }
+    }
+    onSeek = seek => {
+        //Handler for change in seekbar
+        this.videoPlayer.seek(seek);
+    };
+    
+    onPaused = playerState => {
+        //Handler for Video Pause
+        this.setState({
+        paused: !this.state.paused,
+        playerState,
+        });
+    };
+    
+    onReplay = () => {
+        //Handler for Replay
+        this.setState({ playerState: PLAYER_STATES.PLAYING });
+        this.videoPlayer.seek(0);
+    };
+    
+    onProgress = data => {
+        const { isLoading, playerState } = this.state;
+        // Video Player will continue progress even if the video already ended
+        if (!isLoading && playerState !== PLAYER_STATES.ENDED) {
+        this.setState({ currentTime: data.currentTime });
+        }
+    };
+  
+    onLoad = data => this.setState({ duration: data.duration, isLoading: false });
+    
+    onLoadStart = data => this.setState({ isLoading: true });
+    
+    onEnd = () => this.setState({ playerState: PLAYER_STATES.ENDED });
+    
+    onError = () => alert('Oh! ', error);
+    
+    exitFullScreen = () => {
+        alert('Exit full screen');
+    };
+  
+    enterFullScreen = () => {};
+    
+    onFullScreen = () => {
+        this.getOrientation()
+        
+        this.setState({full: !this.state.full})
+        if (this.state.screenType == 'content')
+        this.setState({ screenType: 'cover' });
+        else this.setState({ screenType: 'content' });
+    };
+    renderToolbar = () => (
+        <View>
+        <TouchableOpacity onPress={() => {NavigationService.navigate('PublicHome')}}>
+            <Icon name='keyboard-arrow-left' type="MaterialIcons" style={Styles.navLeftIcon} />
+        </TouchableOpacity>
+        </View>
+    );
+    onSeeking = currentTime => this.setState({ currentTime });
 
     render() {
         console.log("===Detail_render===");
@@ -136,9 +236,9 @@ export default class extends React.Component {
             <StatusBar backgroundColor="#370190" animated barStyle="light-content" />
             <View style={Styles.navigation}>
                 <View style={Styles.navigationBar}>
-                    <TouchableOpacity style={Styles.navLeft} onPress={() => {NavigationService.navigate('PublicHome')}}>
+                    {/* <TouchableOpacity style={Styles.navLeft} onPress={() => {NavigationService.navigate('PublicHome')}}>
                         <Icon name='keyboard-arrow-left' type="MaterialIcons" style={Styles.navLeftIcon} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <View style={Styles.navRight}>
                         {/* <Icon name='playlist-add' type="MaterialIcons" style={Styles.navRightIcon} onPress={() => this.refs.modalPlayList.open()} />
                         <Icon name='share' type="MaterialCommunityIcons" style={Styles.navRightIcon} onPress={this.onShare} /> */}
@@ -153,12 +253,40 @@ export default class extends React.Component {
                     style={{flex: 1, width: '100%', }}
                 />
             </ImageBackground> */}
-            <View style={{ height: 250 }}>
+            {/* <View style={{ height: 250 }}>
                 <WebView
                     style={Styles.WebViewContainer }
                     javaScriptEnabled={true}
                     domStorageEnabled={true}
                     source={{uri: this.state.videoData.video }}
+                />
+            </View> */}
+            <View style={this.state.full? (this.state.orientation=="portrait"? Styles.back2: Styles.back3): Styles.back1}>
+                <Video
+                    onEnd={this.onEnd}
+                    onLoad={this.onLoad}
+                    onLoadStart={this.onLoadStart}
+                    onProgress={this.onProgress}
+                    paused={this.state.paused}
+                    ref={videoPlayer => (this.videoPlayer = videoPlayer)}
+                    resizeMode={this.state.screenType}
+                    onFullScreen={this.state.isFullScreen}
+                    source={{ uri: this.state.videoData.video }}
+                    style={Styles.mediaPlayer}
+                    volume={10}
+                />
+                <MediaControls
+                    duration={this.state.duration}
+                    isLoading={this.state.isLoading}
+                    mainColor="#333"
+                    onFullScreen={this.onFullScreen}
+                    onPaused={this.onPaused}
+                    onReplay={this.onReplay}
+                    onSeek={this.onSeek}
+                    onSeeking={this.onSeeking}
+                    playerState={this.state.playerState}
+                    progress={this.state.currentTime}
+                    toolbar={this.renderToolbar()}
                 />
             </View>
             <Content contentContainerStyle={Style.layoutDefault}>
@@ -169,20 +297,26 @@ export default class extends React.Component {
                 />
                 <View style={Styles.videoInfoDetails}>
                     <View style={Styles.videoInfo}>
-                        <View style={Styles.detailInfo}>
-                            <Text style={Styles.videoDesc}>{this.state.videoData.title}</Text>
-                            <TouchableOpacity  onPress={() => this._showDetail()} style={{justifyContent: 'center'}}>
-                                {this.state.detailShow?
-                                   <Image style={{}} source={require('@Asset/images/arrow-up.png')} style={{width:18, height: 18}}/>
-                                    :                                
-                                    <Image style={{}} source={require('@Asset/images/arrow-down.png')} style={{width:18, height: 18}} />
-                                }
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity  onPress={() => this._showDetail()} >
+                            <View style={Styles.detailInfo}>
+                            
+                                <Text style={Styles.videoDesc}>{this.state.videoData.title}</Text>
+                                <View style={{justifyContent: 'center'}}>
+                                    {this.state.detailShow?
+                                    <Image style={{}} source={require('@Asset/images/arrow-up.png')} style={{width:18, height: 18}}/>
+                                        :                                
+                                        <Image style={{}} source={require('@Asset/images/arrow-down.png')} style={{width:18, height: 18}} />
+                                    }
+                                </View>
+                            </View>
+                        </TouchableOpacity>
                         {/* <Text style={Styles.videoViews}>1.7M views</Text> */}
                     </View>
                     <View style={Styles.listIcons}>
-                        <Icon name='like' type="Foundation" style={Styles.groupLikeIcon} />
+                        <TouchableOpacity onPress={()=>this._likeStatus()}>
+                            <Icon name='like' type="Foundation" style={this.state.likeStatus? Styles.groupLikeIcon : Styles.groupUnLikeIcon} />
+                        </TouchableOpacity>
+                        <Text style={Styles.videoViews}>{this.state.videoData.likes} likes</Text>
                         {/* <Icon name='dislike' type="Foundation" style={Styles.groupIcon} /> */}
                         {/* <Icon name='share' type="MaterialCommunityIcons" style={Styles.groupIcon} onPress={this.onShare} /> */}
                         {/* <Icon name='watch-later' type="MaterialIcons" style={Styles.groupIcon} onPress={() => this.refs.modalDownload.open()} /> */}

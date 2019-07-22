@@ -12,17 +12,17 @@ import Styles from '@Screen/Public/SignIn/Style'
 import api from '../../../Constants/Api'
 import UserData from '../../../Constants/Constants'
 import USER_KEY from '../../../Constants/UserKey'
-
+import { callback_notification } from '../PublicComponent/callBack'
 
 export default class extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
             email: 'www',
-            password: '123',
+            password: '1234',
             hidePassword: true,
             spinner: false,
-            isloading: true,
+            isloading: false,
         };
         console.log("SignIN constructor______");
     }
@@ -30,39 +30,33 @@ export default class extends React.Component {
         
     }
 
-    // componentDidMount(){
-    //     console.log("===didmount  signIN===");
-    //     // AsyncStorage.removeItem(USER_KEY);
-    //     this.setState({spinner: true});
-    //     console.log("===willmount  sigIN===")
-    //     AsyncStorage.getItem(USER_KEY)
-    //     .then(res => {
-    //         this.setState({spinner: false});
-    //          if (res) {
-    //             console.log('User exists!');
-    //             var user_data = JSON.parse(res); 
-
+    componentDidMount(){
+        console.log("===didmount  signIN===");
+        AsyncStorage.removeItem(USER_KEY);
+        this.setState({spinner: true});
+        
+        AsyncStorage.getItem(USER_KEY)
+        .then(res => {
+            this.setState({spinner: false});
+             if (res) {
+                console.log('User exists!');
+                var user_data = JSON.parse(res); 
                 
-    //             global.password = user_data.password;
-    //             global.email = user_data.email;
-    //             this.setState({password: user_data.password});
-    //             this.setState({email: user_data.email});
-    //             console.log("email: " + global.email + "    password: " + global.password);
-    //             this._signIn();
-                    
-                
-    //         } else {
-    //             console.log("user doesn't exist");
-    //             this.setState({isloading: true});
-    //         //   global.isLoggedIn = false;
-    //         //   this.setState({ isLoadingComplete: true })
-    //         }
-    //     })  
-    // }
+                this.setState({password: user_data.password});
+                this.setState({email: user_data.email});
+                console.log("email: " + this.state.email + "    password: " + this.state.password);
+                this._signIn();
+            } else {
+                console.log("user doesn't exist");
+                this.setState({isloading: true}); 
+            }
+        })  
+    }
 
     _signIn = async() => {
         this.setState({spinner: true});
-
+        global.badgeCount = false;
+        global.badgeNum = 0;
         console.log("signIn__");
         console.log("email___"+ this.state.email);
         console.log("password____"+ this.state.password);
@@ -71,21 +65,34 @@ export default class extends React.Component {
         UserData.password = this.state.password;
         console.log('UserData_____');
         console.log(UserData);
+        
 
         api.signIn(UserData).then((res)=>{
             console.log('sinIn_response____');
             console.log(res);
             if(res.respond==1){
                 console.log("signIn Success!!!!!!!!");
-                global.userData = res.result[0];
+                
+    
+                // global.badgeNum = 0;
+                // callback_notification();
+
                 global.user_id = res.result[0].ID;
+                global.firstName = res.result[0].first_name;
+                global.lastName = res.result[0].last_name;
+                global.email = res.result[0].user_email;
+                UserData.userName = res.result[0].user_email;
+                global.password = this.state.password;
+                global.avatar = res.result[0].avatar + '?' + new Date();
+                global.session_id = res.result[0].session_id;
+
+
                 console.log("===user_id===" + global.user_id);
                 if(res.result[0].authormeta.subscribe_channel_id){
                     global.subscribe_channel_id =  res.result[0].authormeta.subscribe_channel_id;
                 }else{
                     global.subscribe_channel_id = [];
                 }
-                global.session_id = res.result[0].session_id;
                 console.log("subscribe_channel_id");
                 console.log(global.subscribe_channel_id);
                 this._allLogo();
@@ -227,15 +234,51 @@ export default class extends React.Component {
                 views: data.postmeta._video_network_views + " Views",
                 time: data.post_date_unformatted.split(" ")[0].split("-")[2] + "/" + data.post_date_unformatted.split(" ")[0].split("-")[1] + "/" + data.post_date_unformatted.split(" ")[0].split("-")[0],
                 detail: data.post_content.replace(/<p>/g,'').replace(/<\/p>/g,''),
+                likes: data.likes
             };
         });
         this.setState({spinner: false});
         global.feedData = feedData;
         console.log('===filtered_feedData===');
         console.log(global.feedData);
-        // this.props.navigation.replace('Drawer');
-        NavigationService.navigate('Drawer');
+        // this.props.navigation.replace('PublicNotification');
 
+        
+        // this.props.navigation.replace('Drawer');
+        // NavigationService.navigate('Drawer');
+        this.getNotifyData();
+    }
+
+    getNotifyData(){
+        api.getNotifyData().then((res)=>{
+          console.log('getNotifyData_response____');
+          console.log(res.respond);
+          if(res.respond==1){
+            console.log("  getNotifyData response success!!!:");
+            console.log("etNotifyData_response",res.result);
+            var notifyData = [];
+            res.result.map((data, index)=>{
+              notifyData[index] = {
+                post_id: data.post_id,
+                logoimage: data.icon,
+                video: data.bigimage,
+                desc: data.message,
+                time: data.starttime
+              };
+            });
+            
+            
+            global.notifyData = notifyData;
+            console.log(" global.notifyData",  global.notifyData);
+            this.props.navigation.replace('Drawer');
+            
+          }else{
+            console.log("faild:  getNotifyData response ");
+          }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     render() {
@@ -250,15 +293,17 @@ export default class extends React.Component {
                     // textStyle={{ color: '#06D65D'}}
                 />
                 <ImageBackground source={require('@Asset/images/bg-login.jpg')} style={{flex: 1, paddingLeft: '10%', paddingRight: '10%'}} >
-                    <View style={{flex: 1, }}>  
-                        <View style={{flex: 0.7, alignItems: 'center', justifyContent: 'center', }}>
-                            <Image style={{}} source={require('@Asset/images/logo-vns.png')} />
+                    <KeyboardAvoidingView  style={{flex: 1}} behavior="padding"  enabled   keyboardVerticalOffset={50} >
+                        <View style={{flex: 1, }}>  
+                            <View style={{flex: 0.7, alignItems: 'center', justifyContent: 'center', }}>
+                                <Image style={{}} source={require('@Asset/images/logo-vns.png')} />
+                            </View>
+                            <View style={{flex: 0.3,}}>
+                                <TextInput  style={Style.login_TextInput} placeholder="USERNAME/EMAIL"  placeholderTextColor='#b0aeae' value={this.state.email} keyboardType="email-address" onChangeText={(TextInputValue) => this.setState({email: TextInputValue})} />
+                                <TextInput secureTextEntry={true}  style={Style.login_TextInput}  placeholder="PASSWORD"  placeholderTextColor='#b0aeae' value={this.state.password} onChangeText={(text) => this.setState({password: text})} />
+                            </View>
                         </View>
-                        <View style={{flex: 0.3,}}>
-                            <TextInput  style={Style.login_TextInput} placeholder="USERNAME/EMAIL"  placeholderTextColor='#b0aeae' value={this.state.email} keyboardType="email-address" onChangeText={(TextInputValue) => this.setState({email: TextInputValue})} />
-                            <TextInput secureTextEntry={true}  style={Style.login_TextInput}  placeholder="PASSWORD"  placeholderTextColor='#b0aeae' value={this.state.password} onChangeText={(text) => this.setState({password: text})} />
-                        </View>
-                    </View>
+                    </KeyboardAvoidingView>  
                     <View style={{flex: 1, }}>     
                         <View style={{flex: 1, justifyContent: "center", }} >
                             <TouchableOpacity style={Styles.LoginButton} onPress={() => this._signIn()}>
@@ -276,6 +321,7 @@ export default class extends React.Component {
                             </View>
                         </View>
                     </View>
+                      
                 </ImageBackground>
             </Content>   
         </Container>
