@@ -36,7 +36,7 @@ class MenuLeft extends Component {
           contentContainerStyle={Styles.layout}
           render
         >
-          <ImageBackground style={Styles.nav} source={require('@Asset/images/bg-leftMenu.jpg')} >
+          <ImageBackground style={Styles.nav} source={require('@Asset/images/bg-main.jpg')} >
             <View style={Styles.navProfile}>
               <Image square style={Styles.navAvatar} source={drawerImage} />
             </View>

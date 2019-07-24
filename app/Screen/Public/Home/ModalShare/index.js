@@ -25,6 +25,7 @@ export default class extends React.Component {
         this.refModalShare.open()
         console.log("===selected_modalItem===");
         global.watchLaterItem = item;
+        global.shareItem = item;
         console.log(item);
     }
     close() {
@@ -36,7 +37,7 @@ export default class extends React.Component {
     onShare() {
         Share.share({
             message:
-                'React Native | A framework for building native apps using React',
+            global.shareItem.video,
         })
     }
     onWatchLater(){

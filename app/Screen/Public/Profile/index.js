@@ -199,7 +199,7 @@ export default class extends React.Component {
             <View style={{flex: 1}}>
                 <KeyboardAvoidingView  style={{flex: 1}} behavior="padding"  enabled   keyboardVerticalOffset={50} >
                     <ImageBackground source={require('@Asset/images/background.png')} style={Styles.backgroundImg} >
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10}}>
                             <TouchableOpacity style={Styles.backArrow} onPress={() => {NavigationService.navigate('Drawer')}}>
                                 <Icon name='close' type="MaterialIcons" style={Styles.backArrowIcon} />
                             </TouchableOpacity>

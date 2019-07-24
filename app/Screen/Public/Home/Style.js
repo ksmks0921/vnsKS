@@ -72,14 +72,14 @@ export default {
     marginVertical: 15,
     borderRadius: 5,
     backgroundColor: '#FFF',
-    elevation: 10,
-    shadowOffset: {
-      width: 10,
-      height: 10
-    },
-    shadowColor: 'rgba(0,0,0,0.1)',
-    shadowOpacity: 0.1,
-    shadowRadius: 5
+    // elevation: 10,
+    // shadowOffset: {
+    //   width: 10,
+    //   height: 10
+    // },
+    // shadowColor: 'rgba(0,0,0,0.1)',
+    // shadowOpacity: 0.1,
+    // shadowRadius: 5
   },
   videoReviews: {
     flexDirection: 'row',
@@ -118,7 +118,7 @@ export default {
   dot: {
     color: 'rgba(0,0,0,0.5)',
     paddingHorizontal: 5,
-    marginTop: -8
+    marginTop: -2
   },
   VideoTitle: {
     paddingHorizontal: 15,

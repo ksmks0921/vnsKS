@@ -209,21 +209,22 @@ export default class extends React.Component {
             </Header>
 
             <Content contentContainerStyle={Style.layoutDefault}>
-                <FlatList
-                    data={this.state.subscribed_channelData}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item, separators }) => (
-                        <TouchableOpacity onPress={() => this._channelSelect(item)}>
-                            <View style={Styles.subscripDetails}>
-                                <Image source={{ uri: item.logo }} style={Styles.subscripImg} />
-                                <Text style={Styles.subscripDesc}>{item.channel_name}</Text>
-                            </View>
-                        </TouchableOpacity>
-                    )}
-                />
-                
-                <View>
+                <View style={{height: 110}}>
+                    <FlatList
+                        data={this.state.subscribed_channelData}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item, separators }) => (
+                            <TouchableOpacity onPress={() => this._channelSelect(item)}>
+                                <View style={Styles.subscripDetails}>
+                                    <Image source={{ uri: item.logo }} style={Styles.subscripImg} />
+                                    <Text style={Styles.subscripDesc}>{item.channel_name}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        )}
+                    />
+                </View>  
+                <View style={{marginTop: 0}}>
                     <FlatList
                         data={this.state.channelVideo}
                         showsHorizontalScrollIndicator={false}

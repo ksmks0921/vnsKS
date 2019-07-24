@@ -262,7 +262,7 @@ export default class extends React.Component {
                             </TouchableOpacity>
                             <View style={Styles.notifyDetails}>
                                 <Text style={Styles.notifyDesc}>{item.desc}</Text>
-                                <Text style={Styles.notifyTime}>{item.time}</Text>
+                                <Text style={Styles.notifyTime}>{ item.time.split(" ")[1] + "  "+ item.time.split(" ")[0].split("-")[2] + "/" + item.time.split(" ")[0].split("-")[1] + "/" + item.time.split(" ")[0].split("-")[0]  }</Text>
                             </View>
                             <TouchableOpacity onPress={() => this._goToDetails(item)}>
                                 <Image source={{ uri: item.video }} style={Styles.notifyVideo} />

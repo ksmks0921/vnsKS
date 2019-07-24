@@ -75,9 +75,11 @@ export default {
     },
     groupUnLikeIcon: {
         color: 'rgba(0,0,0,0.5)',
+        marginTop: -3
     },
     groupLikeIcon: {
         color: '#370190',
+        marginTop: -3
     },
     listIcons: {
         width: '50%',
@@ -90,6 +92,9 @@ export default {
     },
     groupIcon: {
         color: 'rgba(0,0,0,0.5)',
+    },
+    groupIcon_watchLater: {
+        color: '#370190',
     },
     subscribe: {
         flexDirection: 'row',

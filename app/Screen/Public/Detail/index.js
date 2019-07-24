@@ -30,6 +30,8 @@ export default class extends React.Component {
             videoData: global.videoData,
             detailShow: false,
             likeStatus: false,
+            watchLaterStatus: false,
+            index: 0,
             //--------------video player-------------
             currentTime: 0,
             duration: 0,
@@ -52,6 +54,7 @@ export default class extends React.Component {
         this.getOrientation();
         console.log('orientation ---------------' + this.state.orientation)
         });
+        this._getWatchLaterStatus();
     }
 
     componentWillMount(){
@@ -134,7 +137,51 @@ export default class extends React.Component {
     onShare = () => {
         Share.share({
             message:
-                'React Native | A framework for building native apps using React',
+            this.state.videoData.video ,
+        })
+    }
+
+    _getWatchLaterStatus(){
+        //------------get watchLater Date -----------------
+        api.signIn(UserData).then((res)=>{
+            console.log('sinIn_response_for watch_later____');
+            console.log(res.result[0].authormeta.watch_later);
+
+            var getWatch_laterId = res.result[0].authormeta.watch_later;
+           
+            var unFilteredWatchLaterData = [];
+            for (const key in getWatch_laterId) {
+                if (getWatch_laterId.hasOwnProperty(key)) {
+                    const element = getWatch_laterId[key];
+                    console.log("===data of watchLaterID===" + element);
+
+                    
+                    if(element == this.state.videoData.channel_id){
+                        this.setState({watchLaterStatus: true})
+                    }
+                }
+            }
+            console.log("watchLaterStatus===" + this.state.watchLaterStatus);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        //---------------------------------------------
+    }
+
+    _watchLater = () =>{
+        this.setState({watchLaterStatus: !this.state.watchLaterStatus})
+        console.log("===watchLater_item===");
+        console.log("videoData===", this.state.videoData);
+        var id = this.state.videoData.channel_id;
+        var company_name = this.state.videoData.channel_name;
+        var session_id = global.session_id;
+        api.watchLater(id, company_name, session_id).then((res)=>{
+            console.log('watchLater_response____');
+            console.log(res);
+        })
+        .catch((error) => {
+            console.log(error);
         })
     }
 
@@ -149,14 +196,36 @@ export default class extends React.Component {
     }
 
     _videoPlay(item){
+        console.log("===item===", item);
+        console.log("selected index" + index);
+        this.setState({index: index});
+        console.log("===index===" + this.state.index)
         this.setState({videoData: item});
+        this._getWatchLaterStatus();
     }
 
     _showDetail(){
         this.setState({detailShow: !this.state.detailShow})
     }
     _likeStatus(){
+        if(!this.state.likeStatus){
+            this.state.videoData.likes ++;
+        }else{
+            if(this.state.videoData.likes > 0){
+                this.state.videoData.likes --;
+            }
+        }
+
         this.setState({likeStatus: !this.state.likeStatus});
+
+        api.Likes(this.state.videoData.id).then((res)=>{
+            console.log('Likes_response_Details____');
+            console.log(res)
+            
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     //------------------------video Player------------------------
@@ -203,7 +272,23 @@ export default class extends React.Component {
     
     onLoadStart = data => this.setState({ isLoading: true });
     
-    onEnd = () => this.setState({ playerState: PLAYER_STATES.ENDED });
+    onEnd = () => {
+        console.log("video end===");
+        if(this.state.switch_status){
+            if(this.state.index == global.channelDetail.length - 1 ){
+                this.setState({videoData : global.channelDetail[0]});
+
+            }else{
+                this.setState({videoData : global.channelDetail[this.state.index + 1]})
+                // this.setState({ playerState: PLAYER_STATES.ENDED });
+            }
+           
+            this.setState({ isLoading: true });
+            this._getWatchLaterStatus();
+        }else{
+            this.setState({ playerState: PLAYER_STATES.ENDED });
+        }
+    }
     
     onError = () => alert('Oh! ', error);
     
@@ -223,7 +308,7 @@ export default class extends React.Component {
     };
     renderToolbar = () => (
         <View>
-        <TouchableOpacity onPress={() => {NavigationService.navigate('PublicHome')}}>
+        <TouchableOpacity style={{marginLeft: -10}} onPress={() => {NavigationService.navigate('PublicHome')}}>
             <Icon name='keyboard-arrow-left' type="MaterialIcons" style={Styles.navLeftIcon} />
         </TouchableOpacity>
         </View>
@@ -320,8 +405,12 @@ export default class extends React.Component {
                         {/* <Icon name='dislike' type="Foundation" style={Styles.groupIcon} /> */}
                         {/* <Icon name='share' type="MaterialCommunityIcons" style={Styles.groupIcon} onPress={this.onShare} /> */}
                         {/* <Icon name='watch-later' type="MaterialIcons" style={Styles.groupIcon} onPress={() => this.refs.modalDownload.open()} /> */}
-                        <Icon name='playlist-add' type="MaterialIcons" style={Styles.groupIcon} onPress={() => this.refs.modalPlayList.open()} />
+                        <TouchableOpacity onPress={()=>this._watchLater()}>
+                            <Icon name='watch-later' type="MaterialIcons" style={this.state.watchLaterStatus? Styles.groupIcon_watchLater :Styles.groupIcon} />
+                        </TouchableOpacity>
+                        {/* <Icon name='playlist-add' type="MaterialIcons" style={Styles.groupIcon} onPress={() => this.refs.modalPlayList.open()} /> */}
                         <Text style={Styles.videoViews}>{this.state.videoData.views}</Text>
+                        <Icon name='share' type="MaterialCommunityIcons" style={Styles.groupIcon} onPress={this.onShare} />
                     </View>
                     <View style={Styles.subscribe}>
                         <Image source={{ uri: this.state.videoData.logo }} style={Styles.subscribeImg} />
@@ -363,8 +452,8 @@ export default class extends React.Component {
                     <FlatList
                         data={global.channelDetail}
                         showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, separators }) => (
-                            <TouchableOpacity  onPress={() => this._videoPlay(item)}>
+                        renderItem={({ item, separators, index }) => (
+                            <TouchableOpacity  onPress={() => this._videoPlay(item, index)}>
                                 <View style={Styles.videoCaption}>
                                     <TouchableOpacity onPress={() => {
                                         NavigationService.navigate('PublicChannel')

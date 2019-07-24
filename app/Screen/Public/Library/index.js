@@ -128,7 +128,7 @@ export default class extends React.Component {
             </Header>
             <View style={Styles.detailImg} >
                 <Text style={{fontSize: 20}}>Watch Later Playlist</Text>
-                <Text style={{fontSize: 18}}>AaronDityalux</Text>
+                <Text style={{fontSize: 18}}> </Text>
                 <TouchableOpacity onPress={() => this._videoPlay(this.state.watchLaterData[0])} style={{alignItems: 'flex-end'}}>
                     <Image style={{width: 70, height: 70}} source={require('@Asset/images/videoPlay.png')} />
                 </TouchableOpacity>

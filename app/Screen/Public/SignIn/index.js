@@ -32,7 +32,7 @@ export default class extends React.Component {
 
     componentDidMount(){
         console.log("===didmount  signIN===");
-        AsyncStorage.removeItem(USER_KEY);
+        // AsyncStorage.removeItem(USER_KEY);
         this.setState({spinner: true});
         
         AsyncStorage.getItem(USER_KEY)
@@ -292,7 +292,7 @@ export default class extends React.Component {
                     // textContent={'Updating...'}
                     // textStyle={{ color: '#06D65D'}}
                 />
-                <ImageBackground source={require('@Asset/images/bg-login.jpg')} style={{flex: 1, paddingLeft: '10%', paddingRight: '10%'}} >
+                <ImageBackground source={require('@Asset/images/bg-main.jpg')} style={{flex: 1, paddingLeft: '10%', paddingRight: '10%'}} >
                     <KeyboardAvoidingView  style={{flex: 1}} behavior="padding"  enabled   keyboardVerticalOffset={50} >
                         <View style={{flex: 1, }}>  
                             <View style={{flex: 0.7, alignItems: 'center', justifyContent: 'center', }}>
@@ -334,7 +334,7 @@ export default class extends React.Component {
                         textContent={'Loading...'}
                         textStyle={{ color: '#FFF'}}
                     />
-                    <ImageBackground source={require('@Asset/images/bg-login.jpg')} style={{flex: 1, paddingLeft: '10%', paddingRight: '10%', paddingTop: '40%', alignItems: 'center'}} >
+                    <ImageBackground source={require('@Asset/images/bg-main.jpg')} style={{flex: 1, paddingLeft: '10%', paddingRight: '10%', paddingTop: '40%', alignItems: 'center'}} >
                         <Image style={{}} source={require('@Asset/images/logo-vns.png')} />
                     </ImageBackground>
                 </Content>

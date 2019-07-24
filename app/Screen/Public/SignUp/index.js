@@ -219,13 +219,51 @@ export default class extends React.Component {
                 views: data.postmeta._video_network_views + " Views",
                 time: data.post_date_unformatted.split(" ")[0].split("-")[2] + "/" + data.post_date_unformatted.split(" ")[0].split("-")[1] + "/" + data.post_date_unformatted.split(" ")[0].split("-")[0],
                 detail: data.post_content.replace(/<p>/g,'').replace(/<\/p>/g,''),
+                likes: data.likes
             };
         });
         this.setState({spinner: false});
         global.feedData = feedData;
         console.log('===filtered_feedData===');
         console.log(global.feedData);
-        this.props.navigation.replace('Drawer');
+        // this.props.navigation.replace('PublicNotification');
+
+        
+        // this.props.navigation.replace('Drawer');
+        // NavigationService.navigate('Drawer');
+        this.getNotifyData();
+    }
+
+    getNotifyData(){
+        api.getNotifyData().then((res)=>{
+          console.log('getNotifyData_response____');
+          console.log(res.respond);
+          if(res.respond==1){
+            console.log("  getNotifyData response success!!!:");
+            console.log("etNotifyData_response",res.result);
+            var notifyData = [];
+            res.result.map((data, index)=>{
+              notifyData[index] = {
+                post_id: data.post_id,
+                logoimage: data.icon,
+                video: data.bigimage,
+                desc: data.message,
+                time: data.starttime
+              };
+            });
+            
+            
+            global.notifyData = notifyData;
+            console.log(" global.notifyData",  global.notifyData);
+            this.props.navigation.replace('Drawer');
+            
+          }else{
+            console.log("faild:  getNotifyData response ");
+          }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     render() {
@@ -237,7 +275,7 @@ export default class extends React.Component {
                     // textContent={'Updating...'}
                     // textStyle={{ color: '#06D65D'}}
                 />
-                <ImageBackground source={require('@Asset/images/bg-login.jpg')} style={Styles.backgournd} >
+                <ImageBackground source={require('@Asset/images/bg-main.jpg')} style={Styles.backgournd} >
                     <KeyboardAvoidingView  style={{flex: 1}} behavior="padding"  enabled   keyboardVerticalOffset={50} >
                         <View style={{flex: 3, }}>  
                             <View style={Styles.logo}>

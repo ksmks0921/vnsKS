@@ -337,7 +337,7 @@ export default class extends React.Component {
             <Image source={require('@Asset/images/menu.png')} />
           </View>
           <View style={Style.navMiddle}>
-            <Text style={Style.navMiddleDesc}>VISUAL NEW SERVICE</Text>
+            <Text style={Style.navMiddleDesc}>VISUAL NEWS SERVICE</Text>
           </View>
           <TouchableOpacity style={Style.navRight} onPress={() => {this.props.navigation.replace('PublicProfile')}}>
             <Image source={{ uri: this.state.avatarSource }} style={Style.headerImg} />
@@ -347,8 +347,8 @@ export default class extends React.Component {
       <Content contentContainerStyle={Style.layoutDefault}>
         <Spinner
           visible={this.state.spinner}
-          textContent={'Searching...'}
-          textStyle={{ color: '#06D65D'}}
+          // textContent={'Searching...'}
+          // textStyle={{ color: '#06D65D'}}
         />
         <Image source={require('@Asset/images/background.png')} style={Styles.bgMain} />
         <View>

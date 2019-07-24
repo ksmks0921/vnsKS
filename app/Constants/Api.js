@@ -13,6 +13,8 @@ const companySearchUrl = "https://vns2.quickflik.co.uk/api/search_posts/?search_
 const profileUpdateUrl = "https://vns2.quickflik.co.uk/api/edit_profile/?auth_key=Lv7pdgLKkSW7E3wF4qoGoKCyY";
 const registerDdeviceTokenUrl ="https://vns2.quickflik.co.uk/push/savetoken/?auth_key=FDcWZN3y39n8lDIV605gvP7sV&device_type=ios";
 const getNotifyDataUrl = "https://vns2.quickflik.co.uk/push/get_archive/?auth_key=FDcWZN3y39n8lDIV605gvP7sV&orderby=date&order=desc&perpage=100";
+const likeUrl ="https://vns2.quickflik.co.uk/wp-admin/admin-ajax.php";
+
 
 const api = {
 
@@ -232,6 +234,27 @@ const api = {
             method: 'GET'
         }).then((response) => response.json());
         
+        return result;
+    },
+
+    Likes(post_id){
+        console.log("===Likes_API");
+        console.log("post_id====="+ post_id);
+        let formdata = new FormData();
+        formdata.append("action", "Likes")
+        formdata.append("task", "like")
+        formdata.append("post_id", user_id)
+        formdata.append("nonce", "fa59e82a6b")
+
+        result = fetch(likeUrl,{
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data'
+            },
+            body: formdata
+        }).then((response) => response.json());
+
         return result;
     },
 
