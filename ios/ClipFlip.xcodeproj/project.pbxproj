@@ -22,13 +22,11 @@
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		20AC967E715B45008EBBDFD0 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ECB39E5A3A1A4305BEDDE8DF /* rubicon-icon-font.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4C21E0B4AEC006451C7 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157351DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		2D02E4C31E0B4AEC006451C7 /* libRCTImage-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */; };
@@ -50,13 +48,14 @@
 		7785DDBAE0AD64E44EFC4081 /* Pods_ClipFlip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58D2C15A5C86B847D3895AF7 /* Pods_ClipFlip.framework */; };
 		7C26E324DC284BF7B598F0E5 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BD595C63CC64458984CDA6A /* MaterialIcons.ttf */; };
 		7C9E8B96EE4A409894502F38 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F465856DC9A94AAFBE1A349C /* SimpleLineIcons.ttf */; };
+		7D0A74F622F30CB400108F64 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D0A74F522F30C8400108F64 /* Images.xcassets */; };
 		7DD1463722E61E5600351B10 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD1462B22E61C3500351B10 /* libRNFirebase.a */; };
 		7DD1463922E61E5F00351B10 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD1463822E61E5F00351B10 /* UserNotifications.framework */; };
 		7DD146AF22E6266200351B10 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD1468522E6266200351B10 /* JavaScriptCore.framework */; };
 		7DD146B122E6275F00351B10 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DD146B022E6275E00351B10 /* GoogleService-Info.plist */; };
 		7DD2D7C222E6415A000571C5 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD1462422E61C3500351B10 /* libRCTVideo.a */; };
 		7DD2D7C322E64168000571C5 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DD1463022E61C3500351B10 /* libRNImagePicker.a */; };
-		7F9B32C347CFD7AAE4110083 /* Pods_ClipFlipTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 056C15C2B3B0BD8A6D44ABF4 /* Pods_ClipFlipTests.framework */; };
+		7F9B32C347CFD7AAE4110083 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		8079B0D75AD072BD10FC33FA /* Pods_ClipFlip_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830140FDB64E93B9DE5AE4B1 /* Pods_ClipFlip_tvOSTests.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		862583E251BF403892D5E315 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67B9BAFD8E73406DA32BC7DA /* FontAwesome.ttf */; };
@@ -394,7 +393,6 @@
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ClipFlip/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ClipFlip/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ClipFlip/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ClipFlip/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ClipFlip/main.m; sourceTree = "<group>"; };
 		14246F3B47EAB88B0CC85F28 /* Pods-ClipFlipTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClipFlipTests.debug.xcconfig"; path = "Target Support Files/Pods-ClipFlipTests/Pods-ClipFlipTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -423,6 +421,7 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7B40DECFF5BC4A5AA3ABFF8F /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		7BD595C63CC64458984CDA6A /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		7D0A74F522F30C8400108F64 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7DD1463122E61D9100351B10 /* ClipFlip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ClipFlip.entitlements; path = ClipFlip/ClipFlip.entitlements; sourceTree = "<group>"; };
 		7DD1463822E61E5F00351B10 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		7DD1468522E6266200351B10 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -452,7 +451,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */,
-				7F9B32C347CFD7AAE4110083 /* Pods_ClipFlipTests.framework in Frameworks */,
+				7F9B32C347CFD7AAE4110083 /* (null) in Frameworks */,
 				540B24FFE44AC042039001AA /* Pods_ClipFlipTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,7 +596,7 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				7DD146B022E6275E00351B10 /* GoogleService-Info.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				7D0A74F522F30C8400108F64 /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -1309,8 +1308,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				7D0A74F622F30CB400108F64 /* Images.xcassets in Resources */,
 				695CE4D696D54B029599E129 /* Montserrat-Regular.ttf in Resources */,
 				8836B11209D54AC69F145BD4 /* Montserrat-SemiBold.ttf in Resources */,
 				572F0941B21B4D3F9F49D41C /* AntDesign.ttf in Resources */,
@@ -1339,7 +1338,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

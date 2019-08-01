@@ -58,14 +58,18 @@ const Drawer = createDrawerNavigator(
     MemberHome: {
       screen: MemberHome,
     },
+    DrawerContent:{
+      screen:DrawerContent
+    }
   },
   {
     contentComponent: DrawerContent,
     contentOptions: {
       activeTintColor: "#e91e63"
     },
-    headerMode: "none",
-    initialRouteName: "PublicHome",
+    hideStatusBar: true,
+    // headerMode: "none",
+    // initialRouteName: "PublicHome",
     drawerWidth: deviceWidth
   }
 )

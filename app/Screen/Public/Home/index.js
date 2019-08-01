@@ -317,11 +317,25 @@ export default class extends React.Component {
               {cancelable: false},
           );
       }
-  })
-  .catch((error) => {
-      console.log(error);
-  })
+    })
+    .catch((error) => {
+        console.log(error);
+    })
   }
+
+  searchFilterFunction = text => {
+    this.setState({
+        searchKeyword: text,
+    });
+    const newData = global.feedData.filter(item => {
+        const itemData = `${item.searchKeyword.toUpperCase()} `;
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+        feedData: newData,
+    });
+  };
 
   componentWillUnmount(){
     this._isMounted = false;
@@ -331,13 +345,13 @@ export default class extends React.Component {
     console.log("===render_Home===");
     return <Container>
       <Header style={Style.navigation}>
-        <StatusBar backgroundColor='#370190' animated barStyle='light-content' />
+        <StatusBar backgroundColor='#171841' animated barStyle='light-content' />
         <View style={Style.navigationBar}>
-          <View style={Style.navLeft}>
+          <TouchableOpacity style={Style.navLeft} onPress={() => this.props.navigation.openDrawer()}>
             <Image source={require('@Asset/images/menu.png')} />
-          </View>
+          </TouchableOpacity>
           <View style={Style.navMiddle}>
-            <Text style={Style.navMiddleDesc}>VISUAL NEWS SERVICE</Text>
+            <Text style={Style.navMiddleDesc}>VISUAL NEWS SERVICES</Text>
           </View>
           <TouchableOpacity style={Style.navRight} onPress={() => {this.props.navigation.replace('PublicProfile')}}>
             <Image source={{ uri: this.state.avatarSource }} style={Style.headerImg} />
@@ -353,8 +367,8 @@ export default class extends React.Component {
         <Image source={require('@Asset/images/background.png')} style={Styles.bgMain} />
         <View>
           <View style={Styles.searchForm}>
-            <TextInput  placeholder='search here' placeholderTextColor='rgba(0,0,0,0.2)' style={Styles.searchInput} value={this.state.searchKeyword} onChangeText={(text) => this.setState({searchKeyword: text})} />
-            <Icon name='search' type='MaterialIcons' style={Styles.searchIcon} onPress={() => this._videoSearch()}/>
+            <TextInput  placeholder='search here' placeholderTextColor='rgba(0,0,0,0.2)' style={Styles.searchInput} value={this.state.searchKeyword} onChangeText={text => this.searchFilterFunction(text)} />
+            <Icon name='search' type='MaterialIcons' style={Styles.searchIcon} />
           </View>
         </View>
         <View>
@@ -389,50 +403,6 @@ export default class extends React.Component {
         </View>
       </Content>
       <BottomTab/>
-      {/* <View style={Style.footerBg}>
-        <View style={Style.fTab}>
-          <TouchableOpacity style={Style.fIcons} onPress={() => {
-            NavigationService.navigate('PublicHome')
-          }}>
-            <Icon name='home' type='FontAwesome' style={Style.iconActive} />
-            <Text style={Style.textActive}>Feed</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={Style.fIcons} onPress={() => {
-            NavigationService.navigate('PublicTrending')
-          }}>
-            <Icon name='ios-flame' type='Ionicons' style={Style.iconInactive} />
-            <Text style={Style.textInactive}>Trending</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={Style.fIcons} onPress={() => {
-            NavigationService.navigate('PublicSubscription')
-          }}>
-            <Icon name='subscriptions' type='MaterialIcons' style={Style.iconInactive} />
-            <Text style={Style.textInactive}>Subscription</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={Style.fIcons} onPress={() => {
-            this.props.navigation.replace('PublicInbox')
-          }}>
-            <View style={Style.iconInactive}>
-            <Icon name='mail' type='Entypo' style={Style.iconInactive} />
-              <Badge style={{backgroundColor: 'red',  marginTop: -35, marginLeft: 30, padding: 0 }}><Text style={{}}>30</Text></Badge>
-            </View>
-            <Text style={Style.textInactive}>Notification</Text>
-          </TouchableOpacity>
-          {global.badgeCount?
-            <View style={{backgroundColor: 'red',  marginTop: -5, marginLeft: -50, padding: 0, zIndex: 9, width: 20, height: 20, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{fontSize: 12, color: '#FFF'}}>{global.badgeNum}</Text>
-            </View>
-            : 
-            null
-          }
-          <TouchableOpacity style={Style.fIcons} onPress={() => {
-            NavigationService.navigate('PublicLibrary')
-          }}>
-            <Icon name='video-library' type='MaterialIcons' style={Style.iconInactive} />
-            <Text style={Style.textInactive}>Watch List</Text>
-          </TouchableOpacity>
-        </View>
-      </View> */}
       <ModalShare
         ref={(c) => { this.refModalShare = c }}
       />
@@ -442,3 +412,7 @@ export default class extends React.Component {
     </Container>
   }
 }
+
+// myhome.navigationOptions = {
+//   title: "myHome"
+// };

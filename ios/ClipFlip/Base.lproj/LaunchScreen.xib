@@ -19,18 +19,18 @@
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-vns" translatesAutoresizingMaskIntoConstraints="NO" id="sC5-0z-58i">
-                    <rect key="frame" x="120" y="132" width="240" height="128"/>
+                    <rect key="frame" x="76" y="133" width="329" height="215"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="sC5-0z-58i" secondAttribute="height" multiplier="15:8" id="57B-pG-Zss"/>
+                        <constraint firstAttribute="width" secondItem="sC5-0z-58i" secondAttribute="height" multiplier="329:215" id="1uP-0s-AKW"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="sC5-0z-58i" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="120" id="9gf-DB-nMT"/>
+                <constraint firstItem="sC5-0z-58i" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="76" id="Bfi-tf-SQW"/>
+                <constraint firstItem="sC5-0z-58i" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="133" id="DlM-5f-fYI"/>
                 <constraint firstAttribute="trailing" secondItem="fND-EH-rqq" secondAttribute="trailing" id="Iwp-ew-2KJ"/>
-                <constraint firstItem="sC5-0z-58i" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="132" id="Pec-rH-7i3"/>
-                <constraint firstAttribute="trailing" secondItem="sC5-0z-58i" secondAttribute="trailing" constant="120" id="WWA-GF-c3o"/>
+                <constraint firstAttribute="trailing" secondItem="sC5-0z-58i" secondAttribute="trailing" constant="75" id="V2t-qY-0dW"/>
                 <constraint firstItem="fND-EH-rqq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="dN4-93-B8n"/>
                 <constraint firstItem="fND-EH-rqq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fWW-OH-TAb"/>
                 <constraint firstAttribute="bottom" secondItem="fND-EH-rqq" secondAttribute="bottom" id="oi8-3e-QYS"/>

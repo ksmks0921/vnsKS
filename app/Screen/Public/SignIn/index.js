@@ -234,7 +234,8 @@ export default class extends React.Component {
                 views: data.postmeta._video_network_views + " Views",
                 time: data.post_date_unformatted.split(" ")[0].split("-")[2] + "/" + data.post_date_unformatted.split(" ")[0].split("-")[1] + "/" + data.post_date_unformatted.split(" ")[0].split("-")[0],
                 detail: data.post_content.replace(/<p>/g,'').replace(/<\/p>/g,''),
-                likes: data.likes
+                likes: data.likes,
+                searchKeyword: channel_name + data.post_title,
             };
         });
         this.setState({spinner: false});
@@ -285,7 +286,7 @@ export default class extends React.Component {
         console.log("===render signIn===")
         if(this.state.isloading){
         return <Container>
-            <StatusBar backgroundColor="#370190" animated barStyle="light-content" />
+            <StatusBar backgroundColor="#171841" animated barStyle="light-content" />
             <Content contentContainerStyle={Style.layoutDefault}>
                 <Spinner
                     visible={this.state.spinner}
@@ -327,7 +328,7 @@ export default class extends React.Component {
         </Container>
         }else{
             return<Container>
-                <StatusBar backgroundColor="#370190" animated barStyle="light-content" />
+                <StatusBar backgroundColor="#171841" animated barStyle="light-content" />
                 <Content contentContainerStyle={Style.layoutDefault}>
                     <Spinner
                         visible={this.state.spinner}

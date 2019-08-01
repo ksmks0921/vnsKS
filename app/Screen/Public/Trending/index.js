@@ -49,7 +49,7 @@ export default class extends React.Component {
     render() {
         return <Container>
             <Header style={Style.navigation}>
-                <StatusBar backgroundColor='#370190' animated barStyle='light-content' />
+                <StatusBar backgroundColor='#171841' animated barStyle='light-content' />
                 <View style={Style.navigationBar}>
                     <View style={Style.navLeft}>
                         <Icon name='arrow-back' type="MaterialIcons" style={Style.navIcon} onPress={() => {

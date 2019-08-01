@@ -78,7 +78,7 @@ export default {
         marginTop: -3
     },
     groupLikeIcon: {
-        color: '#370190',
+        color: '#171841',
         marginTop: -3
     },
     listIcons: {
@@ -94,7 +94,7 @@ export default {
         color: 'rgba(0,0,0,0.5)',
     },
     groupIcon_watchLater: {
-        color: '#370190',
+        color: '#171841',
     },
     subscribe: {
         flexDirection: 'row',

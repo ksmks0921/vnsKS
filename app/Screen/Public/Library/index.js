@@ -5,6 +5,7 @@ import { Container, Header, Switch, Content, Icon, Text, Card, Button, View } fr
 import NavigationService from '@Service/Navigation'
 import Modal from 'react-native-modalbox'
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import ModalShare from './../Home/ModalShare'
 import ModalMemberAccount from './../Home/ModalMemberAccount'
@@ -27,36 +28,15 @@ export default class extends React.Component {
             videoData: global.videoData,
             detailShow: false,
             avatarSource: global.avatar,
+            spinner: false,
         }
     }
 
-    componentWillMount(){
+    componentDidMount(){
+        this.setState({spinner: true});
+
         console.log("===componentWillMount of watch_list===");
-        // var watch_later = global.allFeedData[0].author[0].authormeta.watch_later;
-        // var unFilteredWatchLaterData = [];
-        // for (const key in watch_later) {
-        //     if (watch_later.hasOwnProperty(key)) {
-        //         const element = watch_later[key];
-        //         console.log("===data of listID===" + element);
-
-        //         global.feedData.map((data, index)=>{
-        //             if(element == data.id){
-        //                 unFilteredWatchLaterData[key] = data;
-        //             }
-        //         });
-        //     }
-        // }
-        // console.log("watchLaterData");
-        // console.log(unFilteredWatchLaterData)
-
-        // var filteredWatchLaterData = unFilteredWatchLaterData.filter(function (el) {
-        //     return el != null;
-        // });
-
-        // global.watchLaterData = filteredWatchLaterData;
-        // this.setState({watchLaterData: filteredWatchLaterData});
-        // console.log("===filtered watch_later data===");
-        // console.log(global.watchLaterData);
+        global.active_page = 5;
 
         api.signIn(UserData).then((res)=>{
             console.log('sinIn_response_for watch_later____');
@@ -88,16 +68,16 @@ export default class extends React.Component {
             this.setState({watchLaterData: filteredWatchLaterData});
             console.log("===filtered watch_later data===");
             console.log(global.watchLaterData);
-                
+            this.setState({spinner: false});
         })
         .catch((error) => {
             console.log(error);
         })
     }
 
-    componentDidMount(){
-        global.active_page = 5;
-    }
+    // componentDidMount(){
+    //     global.active_page = 5;
+    // }
 
     _videoPlay(item){
         global.videoData = item;
@@ -109,9 +89,10 @@ export default class extends React.Component {
     render() {
         console.log("===Detail_render===");
         return <Container>
-            <StatusBar backgroundColor="#370190" animated barStyle="light-content" />
+            <StatusBar backgroundColor="#171841" animated barStyle="light-content" />
+            <Spinner visible={this.state.spinner}/>
             <Header style={Style.navigation}>
-                <StatusBar backgroundColor='#370190' animated barStyle='light-content' />
+                <StatusBar backgroundColor='#171841' animated barStyle='light-content' />
                 <View style={Style.navigationBar}>
                     <View style={Style.navLeft}>
                         <Icon name='arrow-back' type='MaterialIcons' style={Style.navIcon} onPress={() => {

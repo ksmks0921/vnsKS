@@ -49,7 +49,7 @@ export default {
   updateButton: {
     paddingHorizontal: 30, 
     paddingVertical: 10, 
-    backgroundColor: "#370190", 
+    backgroundColor: "#171841", 
     justifyContent: 'center', 
     alignItems: 'center'
   }

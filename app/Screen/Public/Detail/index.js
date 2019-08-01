@@ -308,7 +308,7 @@ export default class extends React.Component {
     };
     renderToolbar = () => (
         <View>
-        <TouchableOpacity style={{marginLeft: -10}} onPress={() => {NavigationService.navigate('PublicHome')}}>
+        <TouchableOpacity style={{marginLeft: -10}} onPress={() =>  this.props.navigation.goBack()}>
             <Icon name='keyboard-arrow-left' type="MaterialIcons" style={Styles.navLeftIcon} />
         </TouchableOpacity>
         </View>
@@ -318,7 +318,7 @@ export default class extends React.Component {
     render() {
         console.log("===Detail_render===");
         return <Container>
-            <StatusBar backgroundColor="#370190" animated barStyle="light-content" />
+            <StatusBar backgroundColor="#171841" animated barStyle="light-content" />
             <View style={Styles.navigation}>
                 <View style={Styles.navigationBar}>
                     {/* <TouchableOpacity style={Styles.navLeft} onPress={() => {NavigationService.navigate('PublicHome')}}>

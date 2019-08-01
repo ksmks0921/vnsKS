@@ -44,7 +44,7 @@ export default {
   // *** Header *** //
   navigation: {
     width: '100%',
-    backgroundColor: '#370190'
+    backgroundColor: '#171841'
   },
   navigationTransparent: {
     width: '100%',
@@ -168,12 +168,12 @@ export default {
   iconActive: {
     ...Platform.select({
       ios: {
-        color: '#370190',
+        color: '#171841',
         fontSize: 24,
         alignSelf: 'center'
       },
       android: {
-        color: '#370190',
+        color: '#171841',
         fontSize: 24,
         alignSelf: 'center'
       }
@@ -214,7 +214,7 @@ export default {
   },
   textActive: {
     fontSize: 10,
-    color: '#370190',
+    color: '#171841',
     fontFamily: 'Montserrat-SemiBold',
     textAlign: 'center'
   },

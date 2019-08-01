@@ -17,7 +17,16 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
   },
-
+  backArrow: {
+    color: '#FFF', 
+    position: 'absolute', 
+    right: 10, 
+    top: 20,
+    zIndex: 9
+  },
+  backArrowIcon: {
+    color: '#FFF'
+  },
   navMenu: {
     flex: 7,
     paddingVertical: 15,

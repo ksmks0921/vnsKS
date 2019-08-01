@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, FlatList, TouchableOpacity, ImageBackground } from "react-native";
+import { Image, FlatList, TouchableOpacity, ImageBackground, Alert } from "react-native";
 import {
   Content,
   Text,
@@ -14,7 +14,6 @@ import {
 } from "native-base";
 import Styles from "./Style";
 import NavigationService from './../../../Service/Navigation'
-
 import MENU from './Menu'
 
 const drawerImage = require("@Asset/images/logo-vns.png");
@@ -37,9 +36,13 @@ class MenuLeft extends Component {
           render
         >
           <ImageBackground style={Styles.nav} source={require('@Asset/images/bg-main.jpg')} >
-            <View style={Styles.navProfile}>
+            <TouchableOpacity style={Styles.backArrow} onPress={()=>this.props.navigation.closeDrawer()}>
+                <Icon name='close' type="MaterialIcons"  style={Styles.backArrowIcon} />
+                {/* <Text>rtrt</Text> */}
+            </TouchableOpacity>
+            <TouchableOpacity style={Styles.navProfile} >
               <Image square style={Styles.navAvatar} source={drawerImage} />
-            </View>
+            </TouchableOpacity>
 
             <View style={Styles.navMenu}>
 
@@ -70,5 +73,7 @@ class MenuLeft extends Component {
     );
   }
 }
-
+// MenuLeft.navigationOptions = {
+//   title: "Left Menu"
+// }
 export default MenuLeft;

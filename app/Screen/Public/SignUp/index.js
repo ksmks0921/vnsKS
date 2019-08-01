@@ -268,7 +268,7 @@ export default class extends React.Component {
 
     render() {
         return <Container>
-            <StatusBar backgroundColor="#370190" animated barStyle="light-content" />
+            <StatusBar backgroundColor="#171841" animated barStyle="light-content" />
             <Content contentContainerStyle={Style.layoutDefault}>
                 <Spinner
                     visible={this.state.spinner}
