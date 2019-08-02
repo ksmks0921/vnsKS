@@ -98,6 +98,10 @@ export default class extends React.Component {
                 this._allLogo();
 
                 AsyncStorage.setItem(USER_KEY, JSON.stringify(UserData));
+                //----------get watchLater id----------------------
+                var getWatch_laterId =  res.result[0].authormeta.watch_later;
+                global.getWatch_laterId = getWatch_laterId
+                //-------------------------------------------------
 
             }else{
                 Alert.alert(
@@ -129,14 +133,14 @@ export default class extends React.Component {
                 var subscribe_channel_id = global.subscribe_channel_id;
                 
                 global.allLogo.map((data, index)=>{
-                    var subscribe_status = false;
+                    var subscribe_status = true;
                     for (const key in subscribe_channel_id) {
                         if (subscribe_channel_id.hasOwnProperty(key)) {
                             const element = subscribe_channel_id[key];
                             console.log("===data of SubscribeDataID===" + element);
 
                             if(element== data.ID){
-                                subscribe_status = true;
+                                subscribe_status = false;
                             }
                         }
                     }
@@ -220,6 +224,21 @@ export default class extends React.Component {
             console.log(channel_id);
             console.log("===realchannel_id===");
             console.log(realchannel_id);
+            //-----------------watchLater--------------
+           
+            var unFilteredWatchLaterData = [];
+            var watchLater_status = false;
+            for (const key in getWatch_laterId) {
+                if (global.getWatch_laterId.hasOwnProperty(key)) {
+                    const element = getWatch_laterId[key];
+                    console.log("===data of watchLaterID===" + element);
+                    if(element == data.ID){
+                        watchLater_status = true
+                    }
+                   
+                }
+            }
+            //--------------------------------------------
             feedData[ index] = {
                 id: data.ID,
                 realchannel_id: realchannel_id,
@@ -236,6 +255,8 @@ export default class extends React.Component {
                 detail: data.post_content.replace(/<p>/g,'').replace(/<\/p>/g,''),
                 likes: data.likes,
                 searchKeyword: channel_name + data.post_title,
+                watchLater_status: watchLater_status
+
             };
         });
         this.setState({spinner: false});

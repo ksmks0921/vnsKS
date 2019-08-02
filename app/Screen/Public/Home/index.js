@@ -37,6 +37,7 @@ export default class extends React.Component {
       feedData: global.feedData,
       searchKeyword: "",
       avatarSource: global.avatar,
+      refreshing: false
     }
   }
   componentWillMount(){
@@ -341,6 +342,10 @@ export default class extends React.Component {
     this._isMounted = false;
   }
 
+  handleRefresh=()=>{
+    this.setState({refreshing: true})
+  }
+
   render() {
     console.log("===render_Home===");
     return <Container>
@@ -399,6 +404,8 @@ export default class extends React.Component {
                 </View>
               </View>
             )}
+            refreshing={this.state.refreshing}
+            onRefresh = {this.handleRefresh}
           />
         </View>
       </Content>

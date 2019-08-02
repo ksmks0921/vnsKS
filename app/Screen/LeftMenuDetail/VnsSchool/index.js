@@ -64,9 +64,7 @@ export default class extends React.Component {
                 <StatusBar backgroundColor="#171841" animated barStyle="light-content" />
                 <View style={Style.navigationBar}>
                     <View style={Style.navLeft}>
-                        <Icon name='arrow-back' type="MaterialIcons" style={Style.navIcon} onPress={() => {
-                            NavigationService.navigate('PublicHome')
-                        }} />
+                        <Icon name='arrow-back' type="MaterialIcons" style={Style.navIcon} onPress={() =>  this.props.navigation.goBack()}/>
                         <Text style={Styles.title}>VNS School</Text>
                     </View>
                 </View>

@@ -114,14 +114,14 @@ export default class extends React.Component {
                 var subscribe_channel_id = global.subscribe_channel_id;
                 
                 global.allLogo.map((data, index)=>{
-                    var subscribe_status = false;
+                    var subscribe_status = true;
                     for (const key in subscribe_channel_id) {
                         if (subscribe_channel_id.hasOwnProperty(key)) {
                             const element = subscribe_channel_id[key];
                             console.log("===data of SubscribeDataID===" + element);
 
                             if(element== data.ID){
-                                subscribe_status = true;
+                                subscribe_status = false;
                             }
                         }
                     }
@@ -219,7 +219,10 @@ export default class extends React.Component {
                 views: data.postmeta._video_network_views + " Views",
                 time: data.post_date_unformatted.split(" ")[0].split("-")[2] + "/" + data.post_date_unformatted.split(" ")[0].split("-")[1] + "/" + data.post_date_unformatted.split(" ")[0].split("-")[0],
                 detail: data.post_content.replace(/<p>/g,'').replace(/<\/p>/g,''),
-                likes: data.likes
+                likes: data.likes,
+                searchKeyword: channel_name + data.post_title,
+                watchLater_status: false,
+
             };
         });
         this.setState({spinner: false});
