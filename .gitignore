@@ -54,3 +54,9 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+
+
+#google
+app/
+google-services.json
+my-release-key.keystore
