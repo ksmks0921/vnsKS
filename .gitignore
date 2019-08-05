@@ -25,7 +25,7 @@ project.xcworkspace
 # Android/IntelliJ
 #
 build/
-google-services.json
+app/google-services.json
 .idea
 .gradle
 local.properties
