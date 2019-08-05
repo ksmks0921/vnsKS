@@ -30,8 +30,7 @@ build/
 local.properties
 *.iml
 
-app/google-services.json
-app/my-release-key.keystore
+
 # node.js
 #
 node_modules/
@@ -42,7 +41,7 @@ yarn-error.log
 buck-out/
 \.buckd/
 *.keystore
-
+google-services.json
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
