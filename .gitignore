@@ -29,7 +29,9 @@ build/
 .gradle
 local.properties
 *.iml
-
+app/
+google-services.json
+my-release-key.keystore
 # node.js
 #
 node_modules/
@@ -56,7 +58,3 @@ buck-out/
 *.jsbundle
 
 
-#google
-app/
-google-services.json
-my-release-key.keystore
