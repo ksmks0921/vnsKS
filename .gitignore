@@ -30,8 +30,8 @@ build/
 local.properties
 *.iml
 
-google-services.json
-my-release-key.keystore
+app/google-services.json
+app/my-release-key.keystore
 # node.js
 #
 node_modules/
